@@ -16,7 +16,6 @@ export const Todolist = () => {
   const dispatch = useDispatch()
 
   const handleDragStart = (index: number) => () => {
-    console.log('drag start', index)
     dragIndex.current = index
   }
 
