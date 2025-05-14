@@ -33,6 +33,13 @@ export const AddTodo = () => {
     }
   }
 
+  const handleKeyDown: React.KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleAddTodo()
+    }
+  }
+
   useEffect(() => {
     adjust();
   }, [adjust]);
@@ -46,6 +53,7 @@ export const AddTodo = () => {
         value={text}
         onClick={handleClick}
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
       />
       <button className="add-todo__button" onClick={handleAddTodo}>Add</button>
     </div>
