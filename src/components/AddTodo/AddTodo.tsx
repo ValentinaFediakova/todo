@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../features/todos/types';
 import { addTodo } from '../../features/todos/todosSlice';
@@ -12,7 +12,7 @@ export const AddTodo = () => {
   const [isMultilineString, setIsMultilineString] = useState(false);
   const dispatch = useDispatch<AppDispatch>()
 
-  const { ref: textarearef, adjust } = useAutoResize<HTMLTextAreaElement>();
+  const { ref: textarearef, adjust, baseHeight } = useAutoResize<HTMLTextAreaElement>();
 
   const handleClick = () => {
     textarearef.current?.focus()
@@ -21,7 +21,7 @@ export const AddTodo = () => {
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value)
     adjust();
-    setIsMultilineString(e.target.value.includes('\n') || textarearef.current!.scrollHeight > textarearef.current!.clientHeight);
+    setIsMultilineString(textarearef.current!.scrollHeight > textarearef.current!.clientHeight);
   }
 
   const handleAddTodo = () => {
@@ -43,6 +43,13 @@ export const AddTodo = () => {
   useEffect(() => {
     adjust();
   }, [adjust]);
+
+  useLayoutEffect(() => {
+    adjust()
+    setIsMultilineString(
+      textarearef.current!.scrollHeight > baseHeight
+    )
+  }, [text])
 
   return (
     <div className="add-todo__content">

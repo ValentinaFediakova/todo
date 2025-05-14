@@ -1,10 +1,10 @@
-import { useEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 
 export function useAutoResize<T extends HTMLTextAreaElement>() {
   const ref = useRef<T>(null);
   const baseHeightRef = useRef<number>(0);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const textArea = ref.current;
     if (!textArea) return;
     textArea.style.height = "auto";
@@ -24,5 +24,5 @@ export function useAutoResize<T extends HTMLTextAreaElement>() {
     textArea.style.height = `${textArea.scrollHeight}px`;
   };
 
-  return { ref, adjust };
+  return { ref, adjust, baseHeight: baseHeightRef.current };
 }
