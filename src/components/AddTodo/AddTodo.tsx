@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import type { AppDispatch } from '../../features/todos/types';
 import { addTodo } from '../../features/todos/todosSlice';
+import { useAutoResize } from '../../hooks/useAutoResize';
+
 import './AddTodo.scss';
 
 
@@ -9,7 +11,8 @@ export const AddTodo = () => {
   const [text, setText] = useState('')
   const [isMultilineString, setIsMultilineString] = useState(false);
   const dispatch = useDispatch<AppDispatch>()
-  const textarearef = useRef<HTMLTextAreaElement | null>(null)
+
+  const { ref: textarearef, adjust } = useAutoResize<HTMLTextAreaElement>();
 
   const handleClick = () => {
     textarearef.current?.focus()
@@ -17,6 +20,8 @@ export const AddTodo = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value)
+    adjust();
+    setIsMultilineString(e.target.value.includes('\n') || textarearef.current!.scrollHeight > textarearef.current!.clientHeight);
   }
 
   const handleAddTodo = () => {
@@ -28,24 +33,9 @@ export const AddTodo = () => {
     }
   }
 
-  const setHeight = () => {
-    if (text === '') {
-      setIsMultilineString(false);
-      if (textarearef.current) {
-        textarearef.current.style.height = 'auto';
-      }
-      return;
-    }
-    const textA = textarearef.current;
-    if (!textA) return;
-    textA.style.height = 'auto';
-    textA.style.height = `${textA.scrollHeight}px`;
-    setIsMultilineString(textA.scrollHeight > 57);
-  };
-
   useEffect(() => {
-    setHeight();
-  }, [text]);
+    adjust();
+  }, [adjust]);
 
   return (
     <div className="add-todo__content">

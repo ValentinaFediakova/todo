@@ -3,7 +3,8 @@ import { DeleteButton } from '../UI/DeleteButton/DeleteButton';
 import { Checkbox } from '../UI/Checkbox/Checkbox';
 import { editTodo, removeTodo, toggleTodo } from '../../features/todos/todosSlice';
 import { useDispatch } from 'react-redux'
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useAutoResize } from '../../hooks/useAutoResize'
 
 import type { Task } from '../../features/todos/types';
 
@@ -16,8 +17,8 @@ interface TodoItemProps {
 export const TodoItem: React.FC<TodoItemProps> = ({ task }) => {
   const [isEditing, setIsEditing] = useState(false)
   const [draft, setDraft] = useState(task.text)
-  const inputRef = useRef<HTMLInputElement>(null)
-  
+
+  const { ref: textAreaRef, adjust } = useAutoResize<HTMLTextAreaElement>()
   const dispatch = useDispatch()
 
   const handleDelete = () => {
@@ -36,8 +37,9 @@ export const TodoItem: React.FC<TodoItemProps> = ({ task }) => {
     setIsEditing(false)
   }
 
-  const handleKeyDown: React.KeyboardEventHandler<HTMLInputElement> = (e) => {
+  const handleKeyDown: React.KeyboardEventHandler<HTMLTextAreaElement> = (e) => {
     if (e.key === 'Enter') {
+      e.preventDefault();
       finishEditing()
     }
     if (e.key === 'Escape') {
@@ -46,12 +48,15 @@ export const TodoItem: React.FC<TodoItemProps> = ({ task }) => {
     }
   }
 
+  const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+    setDraft(e.target.value)
+    adjust()
+  }
+
   useEffect(() => {
-    if (isEditing) {
-      setDraft(task.text)
-      inputRef.current?.focus()
-    }
-  }, [isEditing, task.text])
+    adjust() 
+    textAreaRef.current?.focus()
+  }, [isEditing])
 
   return (
     <div className="todo-item">
@@ -61,11 +66,11 @@ export const TodoItem: React.FC<TodoItemProps> = ({ task }) => {
         </div>
         <div className='todo-item__text-wrap'>
           {isEditing ? (
-            <input 
-              className="todo-item__input" 
-              ref={inputRef}
+            <textarea
+              ref={textAreaRef}
+              className="todo-item__textarea" 
               value={draft}
-              onChange={e => setDraft(e.target.value)}
+              onChange={(e) => handleChange(e)}
               onBlur={finishEditing}
               onKeyDown={handleKeyDown}
             />

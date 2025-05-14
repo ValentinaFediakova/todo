@@ -1,12 +1,12 @@
 .add-todo__content {
   display: flex;
   justify-content: space-between;
-  align-items: center;
   background-color: #e9f0f8;
   border-radius: 5px;
   min-height: 50px;
   max-height: 150px;
   height: fit-content;
+  align-items: stretch;
 }
 
 .add-todo__textarea {
