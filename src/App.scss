@@ -1,0 +1,31 @@
+.app-container {
+  background-image: url("../src/assets/bgi.jpeg");
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+}
+
+.app-wrap {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.app-title {
+  text-align: center;
+  font-size: 20px;
+  margin: 20px 0;
+}
+
+.app-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.app-todos {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  padding: 0 3% 0 0;
+}

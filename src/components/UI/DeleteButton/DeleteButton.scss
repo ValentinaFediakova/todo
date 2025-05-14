@@ -1,0 +1,10 @@
+.deleteButton {
+  background-image: url("../../../assets/delete.svg");
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+
+  &:hover {
+    background-image: url("../../../assets/delete-red.svg");
+  }
+}

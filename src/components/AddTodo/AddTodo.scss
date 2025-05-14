@@ -1,0 +1,46 @@
+.add-todo__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e9f0f8;
+  border-radius: 5px;
+  min-height: 50px;
+  max-height: 150px;
+  height: fit-content;
+}
+
+.add-todo__textarea {
+  width: 90%;
+  min-height: 50px;
+  max-height: 150px;
+  height: fit-content;
+  box-sizing: border-box;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  font-size: 20px;
+  padding: 10px 0 0 20px;
+  padding-top: 17px;
+  line-height: 20px;
+  overflow: hidden;
+  resize: none;
+
+  &_multiline {
+    padding-bottom: 20px;
+  }
+}
+
+.add-todo__textarea:placeholder-shown {
+  padding-top: 17px;
+}
+
+textarea::placeholder {
+  font-size: 16px;
+}
+
+textarea:focus::placeholder {
+  opacity: 0;
+}
+
+.add-todo__button {
+  width: 10%;
+}

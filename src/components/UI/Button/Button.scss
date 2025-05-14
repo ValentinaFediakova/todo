@@ -1,0 +1,21 @@
+.button {
+  width: 80%;
+  height: 50px;
+  border: 1px solid #bddddd;
+  border-radius: 5px;
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  &:hover {
+    background-color: rgba(189, 221, 221, 0.2);
+  }
+
+  &_active {
+    background-color: #bddddd;
+  }
+
+  &_active:hover {
+    background-color: #bddddd;
+  }
+}

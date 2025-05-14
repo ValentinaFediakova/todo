@@ -1,0 +1,34 @@
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+  min-height: 50px;
+}
+
+.todo-item__checkText-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.todo-item__checkbox-wrap {
+  width: 20px;
+  margin-right: 10px;
+}
+
+.todo-item__text-wrap {
+  width: 95%;
+}
+
+.todo-item__buttons {
+  display: flex;
+  align-items: center;
+}
+
+.todo-item__drag-and-drop {
+  background-image: url("../../assets/drag-and-drop.svg");
+  background-size: contain;
+  width: 24px;
+  height: 24px;
+  margin: 0 0 0 20px;
+}
