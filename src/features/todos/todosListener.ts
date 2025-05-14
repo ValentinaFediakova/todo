@@ -13,7 +13,7 @@ export const todosListener = createListenerMiddleware();
 
 todosListener.startListening({
   matcher: isAnyOf(addTodo, removeTodo, toggleTodo, editTodo, reorderTodos),
-  effect: (action, listenerApi) => {
+  effect: (_, listenerApi) => {
     const state = listenerApi.getState() as RootState;
     saveTodos(state.todos.tasks);
   },
