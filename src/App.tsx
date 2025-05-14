@@ -10,7 +10,6 @@ function App() {
   
   const handleToggleMenu = () => {
     setIsOpenMenu(!isOpenMenu)
-    
   }
 
   return (

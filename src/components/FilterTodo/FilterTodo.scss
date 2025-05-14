@@ -6,19 +6,19 @@
   border-radius: 5px;
   max-height: 269px;
 
-  &_open {
-    display: flex;
-  }
-
-  &_close {
-    display: none;
-  }
-
   @media screen and (max-width: 1200px) {
     position: absolute;
     right: 0;
     top: 0;
     width: 220px;
+
+    &_open {
+      display: flex;
+    }
+
+    &_close {
+      display: none;
+    }
   }
 }
 
